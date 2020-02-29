@@ -23,6 +23,16 @@
 ---
 language: c
 sudo: required
+os:
+  - linux
+  - osx
+dist: bionic
+arch:
+  - amd64
+  - s390x
+compiler:
+  - clang
+  - gcc
 addons:
   apt:
     packages:
@@ -31,16 +41,6 @@ addons:
     update: true
     casks:
       - osxfuse
-
-matrix:
-  include:
-    - os: linux
-      dist: bionic
-      compiler: gcc
-    - os: linux
-      dist: bionic
-      compiler: clang
-    - os: osx
 
 script:
   - autoreconf -i
