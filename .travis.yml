@@ -27,12 +27,7 @@ os:
   - linux
   - osx
 dist: bionic
-arch:
-  - amd64
-  - s390x
-compiler:
-  - clang
-  - gcc
+arch: s390x
 addons:
   apt:
     packages:
@@ -46,3 +41,8 @@ script:
   - autoreconf -i
   - ./configure CFLAGS='-Wall -Wextra'
   - make -k
+  - dd if=/dev/zero of=foo.img bs=1048576 count=1
+  - mkfs/mkexfatfs -i 12345678 foo.img
+  - fsck/exfatfsck foo.img
+  - shasum foo.img
+  - echo 'f1b3a11f781533f5b69086596be38367d0ebfb77  foo.img' | shasum -c
